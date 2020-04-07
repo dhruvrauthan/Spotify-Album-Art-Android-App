@@ -10,17 +10,13 @@ import java.util.List;
 public class Album implements Parcelable {
 
     @SerializedName("items")
-    private List<Item> itemList=null;
+    private List<Item> itemList;
 
     public Album() {
     }
 
     public List<Item> getItemList() {
         return itemList;
-    }
-
-    public void setItemList(List<Item> itemList) {
-        this.itemList = itemList;
     }
 
     protected Album(Parcel in) {

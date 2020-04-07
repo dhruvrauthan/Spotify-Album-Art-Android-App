@@ -1,5 +1,6 @@
 package com.example.spotifyalbumart;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     //Variables
     private SpotifyService mSpotifyService;
     private List<Album> mAlbumList;
+    private Album mAlbum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         mSearchButton = findViewById(R.id.search_button);
         mTestTextView = findViewById(R.id.test_textview);
         mAlbumList = new ArrayList<>();
+        mAlbum = new Album();
 
         retrofitOperations();
 
@@ -55,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (mSearchEditText != null) {
+                if (mSearchEditText.getText() != null) {
                     searchForArt(mSearchEditText.getText().toString());
                 }
             }
@@ -69,11 +72,11 @@ public class MainActivity extends AppCompatActivity {
         HashMap<String, String> parameters = new HashMap<>();
         parameters.put("Authorization", "Bearer " + TOKEN);
 
-        Call<List<Album>> call = mSpotifyService.getAlbum(text, "album", parameters);
+        Call<Album> call = mSpotifyService.getAlbum(text, "album", parameters);
         Log.d(TAG, "searchForArt: started call");
-        call.enqueue(new Callback<List<Album>>() {
+        call.enqueue(new Callback<Album>() {
             @Override
-            public void onResponse(Call<List<Album>> call, Response<List<Album>> response) {
+            public void onResponse(@NonNull Call<Album> call, @NonNull Response<Album> response) {
 
                 if (!response.isSuccessful()) {
 
@@ -83,33 +86,34 @@ public class MainActivity extends AppCompatActivity {
 
                 }
 
+                Log.d(TAG, "onResponse: successful");
+                Log.d(TAG, "onResponse: "+response);
                 mTestTextView.setText(null);
-                mAlbumList = response.body();
-                for (Album album : mAlbumList) {
+                mAlbum = response.body();
+                //for (Album album : mAlbumList) {
 
-                    List<Item> itemList = album.getItemList();
+                List<Item> itemList = mAlbum.getItemList();
 
-                    for (Item item : itemList) {
+                for (Item item : itemList) {
 
-                        List<Image> imageList = item.getImageList();
+                    List<Image> imageList = item.getImageList();
 
-                        for (Image image : imageList) {
+                    for (Image image : imageList) {
 
-                            mTestTextView.append(image.getUrl() + "\n");
-
-                        }
-
+                        mTestTextView.append(image.getUrl() + "\n");
 
                     }
+
                 }
+                // }
 
             }
 
             @Override
-            public void onFailure(Call<List<Album>> call, Throwable t) {
+            public void onFailure(Call<Album> call, Throwable t) {
 
                 Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-                Log.d(TAG, "onFailure: call failure");
+                Log.d(TAG, "onFailure: call failure " + t.getMessage());
 
             }
         });
