@@ -3,31 +3,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.MainActivity"
+    tools:context="com.example.spotifyalbumart.activities.DownloadActivity"
     android:orientation="vertical"
     android:gravity="center">
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/search_edittext"
+    <ImageView
+        android:layout_width="375dp"
+        android:layout_height="375dp"
+        android:id="@+id/download_imageview"
         android:layout_margin="10dp"
-        android:autofillHints="Enter name of the album"
         />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/search_button"
-        android:text="@string/search"
+        android:background="@color/colorPrimary"
+        android:text="@string/download"
         android:textAllCaps="false"
         android:layout_margin="10dp"
-        />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/test_textview"
+        android:id="@+id/download_button"
+        android:textColor="#FFFFFF"
         />
 
 </LinearLayout>
