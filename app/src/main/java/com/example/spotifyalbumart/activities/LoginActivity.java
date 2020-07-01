@@ -16,7 +16,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = "LoginActivity";
 
-    public static final String CLIENT_ID = "c2bd5a57ca1940b7ac100444f2ddde22";
+    public static final String CLIENT_ID = "<Add your client ID>";
     public static final String REDIRECT_URI = "com.example.spotifyalbumart://callback";
     public static final int REQUEST_CODE = 1337;
     public static final String SCOPES = "user-read-private,user-read-email";
